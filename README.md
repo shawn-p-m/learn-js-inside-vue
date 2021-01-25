@@ -1,4 +1,10 @@
-# newschool-setup-vue
+# NewSchool Web Project VueJS
+
+## **JS Specifics**
+
+
+- map, reduce, prototypes/ inheritance, async await, promises, generators, mixins, objects, datatypes, debugging, spread
+
 
 ## Project setup
 ```
