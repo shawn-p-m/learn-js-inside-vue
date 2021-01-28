@@ -9,6 +9,7 @@ export const store = new Vuex.Store({
   state: {
     arrowButtonColor: "primary",
     mapButtonColor: "primary",
+    reduceButtonColor: "primary",
   },
   mutations: {
     saveArrowButtonColor: (state, color) => {
@@ -19,6 +20,11 @@ export const store = new Vuex.Store({
     saveMapButtonColor: (state, color) => {
       {
         state.mapButtonColor = color;
+      }
+    },
+    saveReduceButtonColor: (state, color) => {
+      {
+        state.reduceButtonColor = color;
       }
     },
   },

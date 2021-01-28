@@ -1,6 +1,8 @@
 {
   "extends": [
-    "plugin:prettier/recommended",
+    "plugin:prettier/recommended"
 
-  ]
+  ],
+  "printWidth": 100
+
 }
