@@ -1,87 +1,68 @@
 <template>
   <div id="app">
     <v-app>
-      <img alt="Vue logo" src="./assets/logo.png" />
-      <v-btn :color="arrowButtonColor" @click="arrowButtonColor = arrow()">
-        Arrow Function
-      </v-btn>
-      <v-btn :color="mapButtonColor" @click="mapButtonColor = map()">
-        Map Function
-      </v-btn>
+      <v-container fluid>
+        <v-row>
+          <v-col md="4"></v-col>
+          <v-col md="4">
+            <img class="d-flex justify-center" alt="Vue logo" src="./assets/logo.png" />
+          </v-col>
+          <v-col md="4"></v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn class="d-flex justify-center" color="info" v-bind="attrs" v-on="on">
+                  Instructions
+                </v-btn>
+              </template>
+
+              <v-card>
+                <v-card-title class="headline grey lighten-2"> Instructions </v-card-title>
+
+                <v-card-text
+                  ><br />
+                  Click the buttons below after implementing the functions inside
+                  src/mixins/specifics.js to check if you implemented them correctly!
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="secondary" text @click="dialog = false"> Got it! 😎 </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-col>
+        </v-row>
+        <FunctionButtons />
+      </v-container>
     </v-app>
   </div>
 </template>
 
 <script>
-import { arrowFunction, numsWithOddOrEven } from "@/mixins/specifics";
-
-const giveSuccessOrError = (condition) => {
-  if (condition) {
-    return "success";
-  } else {
-    return "error";
-  }
-};
-
+import FunctionButtons from "@/components/FunctionButtons";
 export default {
   name: "App",
-  created: function () {
-    if (
-      this.arrowButtonColor === "error" ||
-      this.arrowButtonColor === "success"
-    )
-      this.arrow();
-
-    if (this.mapButtonColor === "error" || this.mapButtonColor === "success")
-      this.map();
-    this.arrowButtonColor = this.$store.state.arrowButtonColor;
-    this.mapButtonColor = this.$store.state.mapButtonColor;
-  },
-  data: () => {
+  components: { FunctionButtons },
+  data() {
     return {
-      arrowButtonColor: "",
-      mapButtonColor: "",
+      dialog: false,
     };
-  },
-  methods: {
-    arrow: function () {
-      this.$store.commit(
-        "saveArrowButtonColor",
-        giveSuccessOrError(arrowFunction() === 3)
-      );
-
-      return this.$store.state.arrowButtonColor;
-    },
-    map: function () {
-      this.$store.commit(
-        "saveMapButtonColor",
-        giveSuccessOrError(
-          JSON.stringify(numsWithOddOrEven) ===
-            JSON.stringify([
-              "12: is even",
-              "13: is odd",
-              "16: is even",
-              "17: is odd",
-              "8: is even",
-              "32: is even",
-              "33: is odd",
-            ])
-        )
-      );
-
-      return this.$store.state.mapButtonColor;
-    },
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 img {
   width: 200px;
   margin: 5px auto;
 }
 .v-btn {
-  width: 200px;
-  margin: 10px auto;
+  width: 150px;
+  margin: 30px auto !important;
 }
 </style>
