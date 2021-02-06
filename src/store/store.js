@@ -34,5 +34,11 @@ export const store = new Vuex.Store({
       state.generatorButtonColor = color;
     },
   },
+  getters: {
+    reduceButtonColor: (state) => {
+      return state.reduceButtonColor;
+    },
+  },
+
   plugins: [createPersistedState()],
 });

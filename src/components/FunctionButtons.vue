@@ -1,65 +1,26 @@
 <template>
   <div id="function-buttons">
-    <v-row>
-      <v-col md="1"></v-col>
-      <v-col md="3">
-        <v-btn
-          class="d-flex justify-center"
-          :color="arrowButtonColor"
-          @click="arrowButtonColor = arrow()"
-        >
-          Arrow
-        </v-btn>
-      </v-col>
-      <v-col md="4">
-        <v-btn
-          class="d-flex justify-center"
-          :color="mapButtonColor"
-          @click="mapButtonColor = map()"
-        >
-          Map
-        </v-btn>
-      </v-col>
-      <v-col md="3">
-        <v-btn
-          class="d-flex justify-center"
-          :color="reduceButtonColor"
-          @click="reduceButtonColor = reduce()"
-        >
-          Reduce
-        </v-btn>
-      </v-col>
-      <v-col md="1"></v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-btn
-          class="d-flex justify-center"
-          :color="promiseButtonColor"
-          @click="promiseButtonColor = promise()"
-        >
-          Promise
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          class="d-flex justify-center"
-          :color="spreadButtonColor"
-          @click="spreadButtonColor = spread()"
-        >
-          Spread
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          class="d-flex justify-center"
-          :color="generatorButtonColor"
-          @click="generatorButtonColor = generator()"
-        >
-          Generator
-        </v-btn>
-      </v-col>
-    </v-row>
+    <div class="d-flex justify-space-between flex-wrap" style="height: 300px">
+      <v-btn width="120" :color="arrowButtonColor" @click="arrowButtonColor = arrow()">
+        Arrow
+      </v-btn>
+
+      <v-btn width="120" :color="mapButtonColor" @click="mapButtonColor = map()"> Map </v-btn>
+
+      <v-btn width="120" :color="reduceButtonColor" @click="reduce()"> Reduce </v-btn>
+
+      <v-btn width="120" :color="promiseButtonColor" @click="promiseButtonColor = promise()">
+        Promise
+      </v-btn>
+
+      <v-btn width="120" :color="spreadButtonColor" @click="spreadButtonColor = spread()">
+        Spread
+      </v-btn>
+
+      <v-btn width="120" :color="generatorButtonColor" @click="generatorButtonColor = generator()">
+        Generator
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -72,6 +33,7 @@ import {
   spreadedArray,
   generatorArray,
 } from "@/mixins/specifics";
+import { mapGetters } from "vuex";
 
 const giveSuccessOrError = (condition) => {
   if (condition) {
@@ -83,38 +45,18 @@ const giveSuccessOrError = (condition) => {
 
 export default {
   name: "FunctionButtons",
-  created() {
-    if (this.arrowButtonColor === "error" || this.arrowButtonColor === "success") this.arrow();
-    this.arrowButtonColor = this.$store.state.arrowButtonColor;
 
-    if (this.mapButtonColor === "error" || this.mapButtonColor === "success") this.map();
-    this.mapButtonColor = this.$store.state.mapButtonColor;
-
-    if (this.reduceButtonColor === "error" || this.reduceButtonColor === "success") this.map();
-    this.reduceButtonColor = this.$store.state.reduceButtonColor;
-
-    if (this.promiseButtonColor === "error" || this.promiseButtonColor === "success")
-      this.promise();
-    this.promiseButtonColor = this.$store.state.promiseButtonColor;
-
-    if (this.spreadButtonColor === "error" || this.spreadButtonColor === "success") this.spread();
-    this.spreadButtonColor = this.$store.state.spreadButtonColor;
-
-    if (this.generatorButtonColor === "error" || this.generatorButtonColor === "success")
-      this.spread();
-    this.generatorButtonColor = this.$store.state.generatorButtonColor;
-  },
   data() {
     return {
       arrowButtonColor: "",
       mapButtonColor: "",
-      reduceButtonColor: "",
       promiseButtonColor: "",
       spreadButtonColor: "",
       generatorButtonColor: "",
     };
   },
 
+  computed: mapGetters(["reduceButtonColor"]),
   methods: {
     arrow() {
       this.$store.commit("saveArrowButtonColor", giveSuccessOrError(arrowGivesThree() === 3));
@@ -145,8 +87,6 @@ export default {
         "saveReduceButtonColor",
         giveSuccessOrError(JSON.stringify(averageDollaz) === JSON.stringify("885.53"))
       );
-
-      return this.$store.state.reduceButtonColor;
     },
     async promise() {
       promiseWithTitle.then((title) => {
@@ -182,9 +122,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.v-btn {
-  width: 100px;
-  margin: 30px auto;
-}
-</style>
+<style lang="scss" scoped></style>
